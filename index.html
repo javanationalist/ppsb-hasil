@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengumuman Hasil Seleksi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <div class="loader-container" id="loader">
+    <div class="spinner"></div>
+    <p style="font-weight: 500; color: #1c1c1e;">Memeriksa data...</p>
+  </div>
+
+  <div style="min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px;">
+    <div class="glass-card fade-in" style="width: 100%; max-width: 450px; text-align: center;">
+      <h1 class="title">Cek Kelulusan</h1>
+      <p class="subtitle">Masukkan Nomor Peserta dan PIN Anda untuk melihat hasil seleksi.</p>
+      
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="nomorPeserta">Nomor Peserta</label>
+          <input type="text" id="nomorPeserta" placeholder="Contoh: 202601001" required>
+        </div>
+        
+        <div class="input-group">
+          <label for="pin">PIN</label>
+          <input type="password" id="pin" placeholder="Masukkan PIN" required>
+        </div>
+        
+        <p id="errorMsg" style="color: var(--danger); font-size: 0.9rem; margin-bottom: 1rem; display: none;"></p>
+        
+        <button type="submit" class="btn btn-primary">Cek Hasil</button>
+      </form>
+      
+      <div style="margin-top: 2rem; font-size: 0.85rem; color: var(--neutral);">
+        <a href="admin.html" style="color: inherit; text-decoration: none;">Login Admin</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

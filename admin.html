@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Pengumuman Hasil Seleksi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Admin Login -->
+  <div id="adminLoginSection" style="min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px;">
+    <div class="glass-card fade-in" style="width: 100%; max-width: 400px; text-align: center;">
+      <h2 class="title" style="font-size: 1.8rem;">Admin Login</h2>
+      <p class="subtitle" style="margin-bottom: 1.5rem;">Masuk untuk mengelola data peserta</p>
+      
+      <form id="adminLoginForm">
+        <div class="input-group">
+          <label>Username</label>
+          <input type="text" id="adminUsername" required>
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="adminPassword" required>
+        </div>
+        <p id="adminErrorMsg" style="color: var(--danger); font-size: 0.9rem; margin-bottom: 1rem; display: none;">Username atau password salah.</p>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <div style="margin-top: 1.5rem; font-size: 0.85rem;">
+        <a href="index.html" style="color: var(--neutral); text-decoration: none;">Kembali ke Halaman Utama</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard -->
+  <div id="adminDashboardSection" style="display: none;" class="fade-in">
+    <div class="admin-container">
+      <div class="admin-header">
+        <div>
+          <h1 style="font-size: 2rem; margin-bottom: 0.25rem;">Dashboard Admin</h1>
+          <p style="color: var(--neutral);">Kelola data peserta seleksi</p>
+        </div>
+        <div>
+          <button class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem; margin-right: 0.5rem;" onclick="exportCSV()">Export CSV</button>
+          <button class="btn btn-danger" style="width: auto; padding: 0.5rem 1rem; margin-right: 0.5rem;" onclick="resetData()">Reset Data</button>
+          <button class="btn btn-secondary" style="width: auto; padding: 0.5rem 1rem;" onclick="logoutAdmin()">Logout</button>
+        </div>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="statTotal">0</div>
+          <div class="stat-label">Total Peserta</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statLulus" style="color: var(--success);">0</div>
+          <div class="stat-label">Lulus</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statTidakLulus" style="color: var(--danger);">0</div>
+          <div class="stat-label">Tidak Lulus</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statSedang" style="color: var(--neutral);">0</div>
+          <div class="stat-label">Sedang Diseleksi</div>
+        </div>
+      </div>
+      
+      <div class="table-container">
+        <div class="table-header-actions">
+          <input type="text" id="searchInput" class="search-input" placeholder="Cari nama atau nomor peserta...">
+          <button class="btn btn-primary" style="width: auto; padding: 0.75rem 1.5rem;" onclick="openModal()">+ Tambah Peserta</button>
+        </div>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>No. Peserta</th>
+                <th>NISN</th>
+                <th>Nama</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="participantTableBody">
+              <!-- Rows will be populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Form -->
+  <div class="modal" id="participantModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Tambah Peserta</h2>
+        <button class="close-modal" onclick="closeModal()">&times;</button>
+      </div>
+      <form id="participantForm">
+        <input type="hidden" id="formId">
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="input-group">
+            <label>Nomor Peserta *</label>
+            <input type="text" id="formNomorPeserta" required>
+          </div>
+          <div class="input-group">
+            <label>PIN *</label>
+            <input type="text" id="formPin" required>
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="input-group">
+            <label>NISN</label>
+            <input type="text" id="formNisn">
+          </div>
+          <div class="input-group">
+            <label>Nomor Registrasi</label>
+            <input type="text" id="formNomorRegistrasi">
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label>Nama Lengkap *</label>
+          <input type="text" id="formNama" required>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="input-group">
+            <label>Kelas Ditempatkan</label>
+            <input type="text" id="formKelas">
+          </div>
+          <div class="input-group">
+            <label>Nomor Presensi</label>
+            <input type="number" id="formPresensi">
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="input-group">
+            <label>Tanggal Lahir</label>
+            <input type="text" id="formTglLahir" placeholder="Contoh: 12 Mei 2007">
+          </div>
+          <div class="input-group">
+            <label>Asal Sekolah</label>
+            <input type="text" id="formAsalSekolah">
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="input-group">
+            <label>Kabupaten/Kota</label>
+            <input type="text" id="formKabKota">
+          </div>
+          <div class="input-group">
+            <label>Provinsi</label>
+            <input type="text" id="formProvinsi">
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label>Status *</label>
+          <select id="formStatus" required>
+            <option value="LULUS">LULUS</option>
+            <option value="TIDAK LULUS">TIDAK LULUS</option>
+            <option value="SEDANG DISELEKSI">SEDANG DISELEKSI</option>
+          </select>
+        </div>
+        
+        <div style="margin-top: 2rem; display: flex; justify-content: flex-end; gap: 1rem;">
+          <button type="button" class="btn btn-secondary" style="width: auto;" onclick="closeModal()">Batal</button>
+          <button type="submit" class="btn btn-primary" style="width: auto;">Simpan Data</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

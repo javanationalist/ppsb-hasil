@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hasil Seleksi - Pengumuman</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body class="result-page">
+
+  <div class="result-header">
+    <div class="header-text">
+      <h1 id="headerTitle">SELAMAT! ANDA DINYATAKAN LULUS</h1>
+      <p>HASIL SELEKSI PENERIMAAN PESERTA DIDIK BARU<br>TAHUN AJARAN 2026/2027</p>
+    </div>
+    <div class="header-logo">
+      LOGO SELEKSI
+    </div>
+  </div>
+
+  <div class="result-content fade-in">
+    <div class="watermark">HASIL SELEKSI RESMI</div>
+    
+    <div class="info-panel">
+      <div class="identitas-top" id="identitasTop">NISN - NO REG</div>
+      <div class="nama-peserta" id="namaPeserta">NAMA PESERTA</div>
+      <div class="penempatan" id="penempatan">DITEMPATKAN DI KELAS - NOMOR PRESENSI</div>
+      
+      <div class="data-grid">
+        <div class="data-item">
+          <div class="data-label">Tanggal Lahir</div>
+          <div class="data-value" id="tglLahir">-</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">Kabupaten/Kota</div>
+          <div class="data-value" id="kabKota">-</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">Asal Sekolah</div>
+          <div class="data-value" id="asalSekolah">-</div>
+        </div>
+        <div class="data-item">
+          <div class="data-label">Provinsi</div>
+          <div class="data-value" id="provinsi">-</div>
+        </div>
+      </div>
+      
+      <div class="reg-box" id="regBox">
+        <h3>Silakan lakukan pendaftaran ulang</h3>
+        <p>Peserta yang dinyatakan lulus wajib melakukan daftar ulang sesuai jadwal yang telah ditentukan oleh sekolah. Informasi lebih lanjut mengenai proses daftar ulang dapat dilihat pada tautan berikut.</p>
+        <a href="#" target="_blank">Link Informasi Daftar Ulang</a>
+      </div>
+      
+      <div class="action-buttons">
+        <button class="btn-glass" onclick="printResult()">Cetak Hasil</button>
+        <button class="btn-glass" onclick="window.location.href='index.html'; sessionStorage.removeItem('currentUser');">Kembali</button>
+      </div>
+    </div>
+    
+    <div class="qr-panel">
+      <div class="qr-card" id="qrCard">
+        <div class="qr-placeholder" id="qrcode"></div>
+        <div class="qr-caption">QR Code ini merupakan bukti resmi hasil seleksi.</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
